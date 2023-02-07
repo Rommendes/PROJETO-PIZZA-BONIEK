@@ -16,9 +16,12 @@ pizzaJson.map((item, index)=>{
         pizzaItem.querySelector('a').addEventListener('click', (e)=>{
             e.preventDefault();
 //agora vamos abrir o MODAL ---- 
-
+            modalQt = 1;
             let key = e.target.closest('.pizza-item').getAttribute('data-key');//CLOSEST QUER DIZER ACHE O ELEMENTO + PROXIMO apartir do a que é o link
-//AO CLICARMOS PECISAMOS DESTA INFORMÇÕES ABAIXO
+//AO CLICARMOS PRECISAMOS DESTA INFORMaÇÕES ABAIXO que são:
+
+//LISTAGEM DAS PIZZAS  
+ 
             c('.pizzaInfo h1').innerHTML = pizzaJson[key].name;
             c('.pizzaInfo--desc').innerHTML = pizzaJson[key].description;
             c('.pizzaBig img').src = pizzaJson[key].img;
@@ -36,13 +39,29 @@ pizzaJson.map((item, index)=>{
                 size.querySelector('span').innerHTML = pizzaJson[key].sizes[sizeIndex];
                  });
 
+            c('.pizzaInfo--qt').innerHTML = modalQt;
+
             c('.pizzaWindowArea').style.opacity = 0;
+
             c('.pizzaWindowArea').style.display = 'flex';
                 setTimeout(()=>{
                 }, 200);
+
             c('.pizzaWindowArea').style.opacity = 1;
         })
         
 
         c('.pizza-area').append(pizzaItem);
+})
+
+//EVENTOS DO MODAL
+function closeModal (){//fechar o modal
+    c('.pizzaWindowArea').style.opacity = 0;
+    setTimeout(()=>{
+       c('.pizzaWindowArea').style.display = 'none'
+    }, 500);
+}
+
+cs('.pizzaInfo--cancelButton, .pizzaInfo--cancelMobileButton').forEach((item)=> {
+    item.addEventListener('click', closeModal);
 })
