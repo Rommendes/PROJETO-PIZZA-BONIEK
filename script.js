@@ -62,6 +62,26 @@ function closeModal (){//fechar o modal
     }, 500);
 }
 
-cs('.pizzaInfo--cancelButton, .pizzaInfo--cancelMobileButton').forEach((item)=> {
-    item.addEventListener('click', closeModal);
+cs('.pizzaInfo--cancelButton, .pizzaInfo--cancelMobileButton').forEach((cancelar)=> {
+    cancelar.addEventListener('click', closeModal);
+});
+
+c('.pizzaInfo--qtmenos').addEventListener('click', (quantidade)=>{
+    if(modalQt > 1){
+        modalQt--;
+        c('.pizzaInfo--qt').innerHTML = modalQt;
+    }
 })
+
+c('.pizzaInfo--qtmais').addEventListener('click', (quantidade)=>{
+    modalQt++
+    c('.pizzaInfo--qt').innerHTML = modalQt;
+});
+
+//IREMOS SELECIONAR OS TAMANHOS -> sempre será necessário remover 0 item selecionado para acrescentar outro
+cs('.pizzaInfo--size').forEach((size, sizeIndex)=>{
+    size.addEventListener('click', (tamanho)=>{
+        c('.pizzaInfo--size.selected').classList.remove('selected');
+        size.classList.add('selected')
+    })    
+});
