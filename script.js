@@ -91,6 +91,16 @@ cs('.pizzaInfo--size').forEach((size, sizeIndex)=>{
 //ADICIONAR AO CARRINHO
 c('.pizzaInfo--addButton').addEventListener('click', ()=>{
     //INFORMAÇÕES PARA ADICIONAR: qual a pizza?(modalkey) tamanho? quantas?
-    console.log('Pizza: ' + modalkey)
+    //qual é a pizza ->  modalkey -> id
+    //tamanho -> size
+    //quantas -> modalQt
 
+    let size = parseInt(c('.pizzaInfo--size.selected').getAttribute('data-key')) ;
+    
+    carrinho.push({
+        id: pizzaJson[modalkey].id,
+        size: size,
+        qt: modalQt
+    })
+    closeModal();
 })
