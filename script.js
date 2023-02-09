@@ -125,9 +125,15 @@ function updateCarrinho (){
         //A CLASSE SHOW (SIGNIFICA APARECER) ESTÁ DENTRO DO ASIDE 
         c('.cart').innerHTML = '';//Aqui é zerado os valores, caso contrário ela vai repetindo e cumulando----Zera e mostra
 
+        let subtotal = 0;
+        let desconto = 0;
+        let total = 0
+
         for(let i in carrinho){
             let pizzaItem = pizzaJson.find((item)=>item.id == carrinho[i].id);// O método find chama a função -> o calback - retorna 
-            
+            subtotal += pizzaItem.price * carrinho[i].qt;
+
+
             let carrinhoItem = c('.models .cart--item').cloneNode(true);
 
             let pizzaSizeName = carrinho[i].size;
@@ -145,12 +151,33 @@ function updateCarrinho (){
             let pizzaName = `${pizzaItem.name } (${pizzaSizeName})`;
 
             carrinhoItem.querySelector('img').src= pizzaItem.img;
-            carrinhoItem.querySelector('.cart--item-nome').innerHTML = pizzaName;pizzaName;
+            carrinhoItem.querySelector('.cart--item-nome').innerHTML = pizzaName;
             carrinhoItem.querySelector('.cart--item--qt').innerHTML = carrinho[i].qt;
             
+            carrinhoItem.querySelector('.cart--item-qtmenos').addEventListener('click', ()=>{
+                if(carrinho[i].qt > 1){
+                    carrinho[i].qt--;
+                }else{
+                    carrinho.splice(i, 1)// remove
+                }
+                updateCarrinho();
+            });
+
+            carrinhoItem.querySelector('.cart--item-qtmais').addEventListener('click', ()=>{
+                carrinho[i].qt++;
+                updateCarrinho();//atualiza todo o carrinho
+            });
+
             c('.cart').append(carrinhoItem); //O métodos append adiciona um novo valor---mostra
         }
         
+        desconto = subtotal * 0.1;
+        total = subtotal - desconto;
+
+        c('.subtotal span:last-child').innerHTML = `R$ ${subtotal.toFixed(2)}`;//last-child é usado para pegar o último ítem.
+        c('.desconto span:last-child').innerHTML = `R$ ${desconto.toFixed(2)}`;
+        c('.total span:last-child').innerHTML = `R$ ${total.toFixed(2)}`;
+
     }else{
         c('aside').classList.remove('show');
     }
