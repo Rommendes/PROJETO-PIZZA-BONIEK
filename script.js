@@ -97,10 +97,41 @@ c('.pizzaInfo--addButton').addEventListener('click', ()=>{
 
     let size = parseInt(c('.pizzaInfo--size.selected').getAttribute('data-key')) ;
     
-    carrinho.push({
+    //JUNTAR OS TAMANHOS com os TIPOS de pizzas --- id + size
+    let identificador = pizzaJson[modalkey].id + 'TT' + size;
+
+    //PARA VER SE TEM ÍTEM REPETIDO NO CARRINHO
+    let key = carrinho.findIndex((item)=>{
+        return item.identificador = identificador
+    });
+
+    //se não achou dou o push
+    if(key > -1){
+    carrinho[key].qt += modalQt
+    }else{
+        carrinho.push({
+        identificador,
         id: pizzaJson[modalkey].id,
         size: size,
         qt: modalQt
-    })
+    });
+    }
+    updateCarrinho();
     closeModal();
-})
+});
+
+//CARRINHO DE COMPRAS
+function updateCarrinho (){
+    if(carrinho.length > 0){
+        c('aside').classList.add('show'); //mostra o carrinho
+        //A CLASSE SHOW (SIGNIFICA APARECER) ESTÁ DENTRO DO ASIDE 
+        for(let i in carrinho){
+            let pizzaItem = pizzaJson.find((item)=>item.id == carrinho[i].id);
+            
+            console.log(pizzaItem);
+        }
+        
+    }else{
+        c('aside').classList.remove('show');
+    }
+}
