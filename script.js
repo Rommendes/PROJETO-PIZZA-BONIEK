@@ -130,15 +130,25 @@ function updateCarrinho (){
             
             let carrinhoItem = c('.models .cart--item').cloneNode(true);
 
-            c('.cart').append(carrinhoItem); //O métodos append adiciona um novo valor---nostra
-
-            let pizzaSizeName;
-            
+            let pizzaSizeName = carrinho[i].size;
+             switch(carrinho[i].size){
+                case 0:
+                    pizzaSizeName = 'P';
+                    break;
+                case 1:
+                    pizzaSizeName = 'M';
+                    break;
+                case 2:
+                    pizzaSizeName = 'G';
+                    break
+            }
             let pizzaName = `${pizzaItem.name } (${pizzaSizeName})`;
 
             carrinhoItem.querySelector('img').src= pizzaItem.img;
-            carrinhoItem.querySelector('.cart--item-nome').innerHTML = pizzaItem.pizzaName;
+            carrinhoItem.querySelector('.cart--item-nome').innerHTML = pizzaName;pizzaName;
+            carrinhoItem.querySelector('.cart--item--qt').innerHTML = carrinho[i].qt;
             
+            c('.cart').append(carrinhoItem); //O métodos append adiciona um novo valor---mostra
         }
         
     }else{
