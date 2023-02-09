@@ -101,9 +101,7 @@ c('.pizzaInfo--addButton').addEventListener('click', ()=>{
     let identificador = pizzaJson[modalkey].id + 'TT' + size;
 
     //PARA VER SE TEM ÍTEM REPETIDO NO CARRINHO
-    let key = carrinho.findIndex((item)=>{
-        return item.identificador = identificador
-    });
+    let key = carrinho.findIndex((item)=>item.identificador == identificador);
 
     //se não achou dou o push
     if(key > -1){
@@ -125,10 +123,22 @@ function updateCarrinho (){
     if(carrinho.length > 0){
         c('aside').classList.add('show'); //mostra o carrinho
         //A CLASSE SHOW (SIGNIFICA APARECER) ESTÁ DENTRO DO ASIDE 
+        c('.cart').innerHTML = '';//Aqui é zerado os valores, caso contrário ela vai repetindo e cumulando----Zera e mostra
+
         for(let i in carrinho){
-            let pizzaItem = pizzaJson.find((item)=>item.id == carrinho[i].id);
+            let pizzaItem = pizzaJson.find((item)=>item.id == carrinho[i].id);// O método find chama a função -> o calback - retorna 
             
-            console.log(pizzaItem);
+            let carrinhoItem = c('.models .cart--item').cloneNode(true);
+
+            c('.cart').append(carrinhoItem); //O métodos append adiciona um novo valor---nostra
+
+            let pizzaSizeName;
+            
+            let pizzaName = `${pizzaItem.name } (${pizzaSizeName})`;
+
+            carrinhoItem.querySelector('img').src= pizzaItem.img;
+            carrinhoItem.querySelector('.cart--item-nome').innerHTML = pizzaItem.pizzaName;
+            
         }
         
     }else{
