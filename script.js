@@ -119,7 +119,21 @@ c('.pizzaInfo--addButton').addEventListener('click', ()=>{
 });
 
 //CARRINHO DE COMPRAS
+
+c('.menu-openner').addEventListener('click', ()=>{
+    if(carrinho.length > 0){
+        c('aside').style.left = '0';
+    };
+});
+
+c('.menu-closer').addEventListener('click', ()=>{
+    c('aside').style.left = '100vw';
+});
+
+
 function updateCarrinho (){
+    c('.menu-openner span').innerHTML = carrinho.length;
+
     if(carrinho.length > 0){
         c('aside').classList.add('show'); //mostra o carrinho
         //A CLASSE SHOW (SIGNIFICA APARECER) ESTÁ DENTRO DO ASIDE 
@@ -180,5 +194,6 @@ function updateCarrinho (){
 
     }else{
         c('aside').classList.remove('show');
+        c('aside').style.left = '100vw';
     }
 }
